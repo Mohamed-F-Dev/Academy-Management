@@ -1,8 +1,10 @@
+import 'package:academy_management_system/core/common/custom_textfield.dart';
 import 'package:academy_management_system/core/common/logo.dart';
 import 'package:academy_management_system/core/config/business_config.dart';
 import 'package:academy_management_system/core/layout/app_responsive.dart';
 import 'package:academy_management_system/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:academy_management_system/features/auth/presentation/widget/brand_panel.dart';
+import 'package:academy_management_system/features/auth/presentation/widget/role_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -19,7 +21,7 @@ class _LoginPageState extends State<LoginPage> {
   final formKey = GlobalKey<FormState>();
 
   bool obscurePassword = true;
-  LoginRole selectedRole = LoginRole.admin;
+  ValueNotifier<LoginRole> selectedRole = ValueNotifier(LoginRole.admin);
 
   @override
   void dispose() {
@@ -104,68 +106,32 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 28),
 
               // Roles
-              _RoleSelector(
-                selectedRole: selectedRole,
-                onChanged: (role) {
-                  setState(() => selectedRole = role);
+              ValueListenableBuilder(
+                valueListenable: selectedRole,
+                builder: (context, value, child) {
+                  return RoleSelector(
+                    selectedRole: value,
+                    onChanged: (role) {
+                      selectedRole.value = role;
+                    },
+                  );
                 },
               ),
 
               const SizedBox(height: 25),
 
               // Email
-              const _FieldLabel(text: 'البريد الإلكتروني', required: true),
-
-              const SizedBox(height: 8),
-
-              TextFormField(
-                controller: username,
-                keyboardType: TextInputType.emailAddress,
-                textDirection: TextDirection.ltr,
-                textAlign: TextAlign.right,
-                decoration: _inputDecoration(hintText: 'admin@academy.com'),
-                validator: (value) {
-                  if (value == null || value.trim().isEmpty) {
-                    return 'أدخل البريد الإلكتروني';
+              ValueListenableBuilder(
+                valueListenable: selectedRole,
+                builder: (context, value, child) {
+                  if (value == LoginRole.admin) {
+                    return _textforms();
+                  } else {
+                    return _teacherCode();
                   }
-                  return null;
                 },
               ),
-
-              const SizedBox(height: 17),
-
-              // Password
-              const _FieldLabel(text: 'كلمة المرور', required: true),
-
               const SizedBox(height: 8),
-
-              TextFormField(
-                controller: password,
-                obscureText: obscurePassword,
-                textDirection: TextDirection.ltr,
-                textAlign: TextAlign.right,
-                decoration: _inputDecoration(
-                  hintText: '••••••••',
-                  suffixIcon: IconButton(
-                    onPressed: () {
-                      setState(() => obscurePassword = !obscurePassword);
-                    },
-                    icon: Icon(
-                      obscurePassword
-                          ? Icons.visibility_off_outlined
-                          : Icons.visibility_outlined,
-                      size: 18,
-                      color: LoginColors.muted,
-                    ),
-                  ),
-                ),
-                validator: (value) {
-                  if (value == null || value.length < 6) {
-                    return 'كلمة المرور 6 أحرف على الأقل';
-                  }
-                  return null;
-                },
-              ),
 
               const SizedBox(height: 20),
 
@@ -266,33 +232,72 @@ class _LoginPageState extends State<LoginPage> {
     context.read<AuthCubit>().login(username.text.trim(), password.text);
   }
 
-  InputDecoration _inputDecoration({
-    required String hintText,
-    Widget? suffixIcon,
-  }) {
-    return InputDecoration(
-      hintText: hintText,
-      hintStyle: const TextStyle(fontSize: 12, color: Color(0xFF9C9A94)),
-      filled: true,
-      fillColor: const Color(0xFFFBF8F1),
-      suffixIcon: suffixIcon,
-      contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-      enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(8),
-        borderSide: const BorderSide(color: Color(0xFFDED9CF)),
-      ),
-      focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(8),
-        borderSide: const BorderSide(color: LoginColors.teal, width: 1.3),
-      ),
-      errorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(8),
-        borderSide: const BorderSide(color: Colors.redAccent),
-      ),
-      focusedErrorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(8),
-        borderSide: const BorderSide(color: Colors.redAccent),
-      ),
+  //teacher
+  Widget _teacherCode() {
+    return Column(
+      children: [
+        const FieldLabel(text: 'الكود', required: true),
+
+        const SizedBox(height: 8),
+        CustomTextField(
+          controller: username,
+          keyboardType: TextInputType.emailAddress,
+          textDirection: TextDirection.ltr,
+          textAlign: TextAlign.right,
+
+          validator: (value) {
+            if (value == null || value.trim().isEmpty) {
+              return 'أدخل البريد الإلكتروني';
+            }
+            return null;
+          },
+        ),
+      ],
+    );
+  }
+
+  //admain
+  Widget _textforms() {
+    return Column(
+      children: [
+        const FieldLabel(text: 'البريد الإلكتروني', required: true),
+
+        const SizedBox(height: 8),
+        CustomTextField(
+          controller: username,
+          keyboardType: TextInputType.emailAddress,
+          textDirection: TextDirection.ltr,
+          textAlign: TextAlign.right,
+
+          validator: (value) {
+            if (value == null || value.trim().isEmpty) {
+              return 'أدخل البريد الإلكتروني';
+            }
+            return null;
+          },
+        ),
+
+        const SizedBox(height: 17),
+
+        // Password
+        const FieldLabel(text: 'كلمة المرور', required: true),
+
+        const SizedBox(height: 8),
+        CustomTextField(
+          controller: password,
+          obscureText: true,
+          textDirection: TextDirection.ltr,
+          textAlign: TextAlign.right,
+          hint: "••••••••",
+
+          validator: (value) {
+            if (value == null || value.length < 6) {
+              return 'كلمة المرور 6 أحرف على الأقل';
+            }
+            return null;
+          },
+        ),
+      ],
     );
   }
 }
@@ -388,113 +393,14 @@ class _MobileTabletLayout extends StatelessWidget {
 }
 
 // ==========================================================
-// Role selector
-// ==========================================================
-
-enum LoginRole { admin, teacher }
-
-class _RoleSelector extends StatelessWidget {
-  final LoginRole selectedRole;
-  final ValueChanged<LoginRole> onChanged;
-
-  const _RoleSelector({required this.selectedRole, required this.onChanged});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: _RoleButton(
-            text: 'مدرس',
-            icon: Icons.menu_book_outlined,
-            selected: selectedRole == LoginRole.teacher,
-            onTap: () => onChanged(LoginRole.teacher),
-          ),
-        ),
-
-        const SizedBox(width: 8),
-
-        Expanded(
-          child: _RoleButton(
-            text: 'مدير الأكاديمية',
-            icon: Icons.shield_outlined,
-            selected: selectedRole == LoginRole.admin,
-            onTap: () => onChanged(LoginRole.admin),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _RoleButton extends StatelessWidget {
-  final String text;
-  final IconData icon;
-  final bool selected;
-  final VoidCallback onTap;
-
-  const _RoleButton({
-    required this.text,
-    required this.icon,
-    required this.selected,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      color: selected ? const Color(0xFFDCEDEA) : Colors.transparent,
-      borderRadius: BorderRadius.circular(8),
-      child: InkWell(
-        borderRadius: BorderRadius.circular(8),
-        onTap: onTap,
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 180),
-          height: 40,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(
-              color: selected
-                  ? const Color(0xFF8BC6BF)
-                  : const Color(0xFFDCD7CD),
-            ),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                icon,
-                size: 16,
-                color: selected ? LoginColors.teal : LoginColors.muted,
-              ),
-
-              const SizedBox(width: 8),
-
-              Text(
-                text,
-                style: TextStyle(
-                  color: selected ? LoginColors.teal : LoginColors.muted,
-                  fontSize: 11,
-                  fontWeight: selected ? FontWeight.w600 : FontWeight.w400,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-// ==========================================================
 // Shared widgets
 // ==========================================================
 
-class _FieldLabel extends StatelessWidget {
+class FieldLabel extends StatelessWidget {
   final String text;
   final bool required;
 
-  const _FieldLabel({required this.text, this.required = false});
+  const FieldLabel({super.key, required this.text, this.required = false});
 
   @override
   Widget build(BuildContext context) {

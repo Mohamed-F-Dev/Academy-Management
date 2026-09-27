@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../features/academy/presentation/cubit/academy_cubit.dart';
-import '../../features/groups/presentation/cubit/groups_cubit.dart';
-import '../../features/payments/presentation/cubit/payments_cubit.dart';
-import '../../features/students/presentation/cubit/students_cubit.dart';
-import '../../features/teachers/presentation/cubit/teachers_cubit.dart';
+import '../../features/admain/academy/presentation/cubit/academy_cubit.dart';
+import '../../features/admain/groups/presentation/cubit/groups_cubit.dart';
+import '../../features/admain/payments/presentation/cubit/payments_cubit.dart';
+import '../../features/admain/students/presentation/cubit/students_cubit.dart';
+import '../../features/admain/teachers/presentation/cubit/teachers_cubit.dart';
 import '../models/entities.dart';
 
 Future<void> showStudentDialog(BuildContext context, {Student? item}) async {

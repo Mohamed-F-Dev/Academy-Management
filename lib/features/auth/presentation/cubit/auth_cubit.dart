@@ -50,3 +50,5 @@ class AuthCubit extends Cubit<AuthState> {
 
   void logout() => emit(const AuthState());
 }
+
+enum LoginRole { admin, teacher }

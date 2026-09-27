@@ -1,3 +1,5 @@
+import 'package:academy_management_system/core/theme/app_colors.dart';
+import 'package:academy_management_system/core/theme/apptypography.dart';
 import 'package:flutter/material.dart';
 
 /// Unified design system for the Academy management dashboard.
@@ -56,7 +58,21 @@ class AppTheme {
       colorScheme: scheme,
       scaffoldBackgroundColor: canvas,
       fontFamily: fontFamily,
-
+      textTheme: TextTheme(
+        displayLarge: AppTypography.h1.copyWith(color: AppColors.textPrimary),
+        displayMedium: AppTypography.h2.copyWith(color: AppColors.textPrimary),
+        displaySmall: AppTypography.h3.copyWith(color: AppColors.textPrimary),
+        headlineMedium: AppTypography.h4.copyWith(color: AppColors.textPrimary),
+        bodyLarge: AppTypography.bodyLarge.copyWith(
+          color: AppColors.textPrimary,
+        ),
+        bodyMedium: AppTypography.bodyMedium.copyWith(
+          color: AppColors.textSecondary,
+        ),
+        bodySmall: AppTypography.bodySmall.copyWith(
+          color: AppColors.textSecondary,
+        ),
+      ),
       // fontFamilyFallback: fontFamilyFallback,
       appBarTheme: const AppBarTheme(
         backgroundColor: Colors.white,

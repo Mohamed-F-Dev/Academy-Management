@@ -5,16 +5,16 @@ import 'package:go_router/go_router.dart';
 
 import '../../features/auth/presentation/cubit/auth_cubit.dart';
 import '../../features/auth/presentation/screen/login_page.dart';
-import '../../features/attendance/presentation/pages/attendance_page.dart';
-import '../../features/dashboard/presentation/pages/dashboard_page.dart';
-import '../../features/groups/presentation/pages/groups_page.dart';
-import '../../features/lessons/presentation/pages/lessons_page.dart';
-import '../../features/payments/presentation/pages/payments_page.dart';
-import '../../features/reports/presentation/pages/reports_page.dart';
-import '../../features/settings/presentation/pages/settings_page.dart';
-import '../../features/students/presentation/pages/student_details_page.dart';
-import '../../features/students/presentation/pages/students_page.dart';
-import '../../features/teachers/presentation/pages/teachers_page.dart';
+import '../../features/admain/attendance/presentation/pages/attendance_page.dart';
+import '../../features/admain/dashboard/presentation/pages/dashboard_page.dart';
+import '../../features/admain/groups/presentation/pages/groups_page.dart';
+import '../../features/admain/lessons/presentation/pages/lessons_page.dart';
+import '../../features/admain/payments/presentation/pages/payments_page.dart';
+import '../../features/admain/reports/presentation/pages/reports_page.dart';
+import '../../features/admain/settings/presentation/pages/settings_page.dart';
+import '../../features/admain/students/presentation/pages/student_details_page.dart';
+import '../../features/admain/students/presentation/pages/students_page.dart';
+import '../../features/admain/teachers/presentation/pages/teachers_page.dart';
 import '../widgets/app_shell.dart';
 import 'router_refresh.dart';
 
