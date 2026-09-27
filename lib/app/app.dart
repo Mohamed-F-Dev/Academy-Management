@@ -3,9 +3,9 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import 'core/routing/app_router.dart';
-import 'core/theme/app_theme.dart';
-import 'features/auth/presentation/cubit/auth_cubit.dart';
+import '../core/routing/app_router.dart';
+import '../core/theme/app_theme.dart';
+import '../features/auth/presentation/cubit/auth_cubit.dart';
 
 class AcademyApp extends StatefulWidget {
   const AcademyApp({super.key});

@@ -146,10 +146,7 @@ class _TeacherGrid extends StatelessWidget {
                     backgroundColor: colors[index % colors.length],
                     child: Text(
                       teacher.name.substring(0, 1),
-                      style: const TextStyle(
-                        color: AppTheme.tealDark,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ),
                   const Spacer(),

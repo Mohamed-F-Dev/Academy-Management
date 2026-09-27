@@ -2,7 +2,6 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/theme/app_theme.dart';
 import '../../../../shared/widgets/management_widgets.dart';
 import '../../../reports/presentation/cubit/reports_cubit.dart';
 import '../../../students/presentation/cubit/students_cubit.dart';
@@ -27,7 +26,7 @@ class DashboardPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const _AcademyHero(),
-              const SizedBox(height: 18),
+              const SizedBox(height: 14),
               LayoutBuilder(
                 builder: (context, c) {
                   final columns = c.maxWidth < 700 ? 2 : 4;
@@ -35,200 +34,218 @@ class DashboardPage extends StatelessWidget {
                     crossAxisCount: columns,
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    mainAxisSpacing: 16,
-                    crossAxisSpacing: 16,
-                    childAspectRatio: c.maxWidth < 500 ? 1.35 : 1.75,
+                    mainAxisSpacing: 14,
+                    crossAxisSpacing: 14,
+                    childAspectRatio: c.maxWidth < 500 ? 1.35 : 1.8,
                     children: [
                       MetricCard(
                         title: 'إجمالي الطلاب',
                         value:
                             '${report.summary['students'] ?? students.items.length}',
                         icon: Icons.groups_rounded,
-                        color: const Color(0xFF0F766E),
+                        color: Colors.blue,
                         caption: '+12% هذا الشهر',
                       ),
                       MetricCard(
                         title: 'المدرسون',
                         value: '${report.summary['teachers'] ?? 0}',
                         icon: Icons.co_present_rounded,
-                        color: const Color(0xFF7A5AF8),
+                        color: Colors.deepPurple,
                       ),
                       MetricCard(
                         title: 'المجموعات',
                         value: '${report.summary['groups'] ?? 0}',
                         icon: Icons.category_rounded,
-                        color: const Color(0xFFF79009),
+                        color: Colors.orange,
                       ),
                       MetricCard(
                         title: 'إيرادات الشهر',
                         value:
                             '${(report.summary['revenue'] ?? 0).toStringAsFixed(0)} ج.م',
                         icon: Icons.payments_rounded,
-                        color: const Color(0xFF12B76A),
+                        color: Colors.green,
                         caption: '+8% هذا الشهر',
                       ),
                     ],
                   );
                 },
-LayoutBuilder(
+              ),
+              const SizedBox(height: 18),
+              LayoutBuilder(
                 builder: (context, c) => Flex(
                   direction: c.maxWidth > 850 ? Axis.horizontal : Axis.vertical,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Expanded(
                       flex: c.maxWidth > 850 ? 3 : 0,
-                      child: SectionCard(
-                        title: 'الحضور خلال الأسبوع',
-                        subtitle: 'عدد الطلاب الحاضرين لكل يوم',
-                        child: SizedBox(
-                          height: 240,
-                          child: BarChart(
-                            BarChartData(
-                              borderData: FlBorderData(show: false),
-                              gridData: const FlGridData(show: false),
-                              titlesData: FlTitlesData(
-                                leftTitles: const AxisTitles(
-                                  sideTitles: SideTitles(
-                                    showTitles: false,
-                                  ),
+                      child: Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(20),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                'الحضور خلال الأسبوع',
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold,
                                 ),
-                                rightTitles: const AxisTitles(
-                                  sideTitles: SideTitles(
-                                    showTitles: false,
-                                  ),
-                                ),
-                                topTitles: const AxisTitles(
-                                  sideTitles: SideTitles(
-                                    showTitles: false,
-                                  ),
-                                ),
-                                bottomTitles: AxisTitles(
-                                  sideTitles: SideTitles(
-                                    showTitles: true,
-                                    getTitlesWidget: (v, _) => Text(
-                                      [
-                                        'س',
-                                        'ح',
-                                        'ن',
-                                        'ث',
-                                        'ر',
-                                        'خ',
-                                        'ج',
-                                      ][v.toInt().clamp(0, 6).toInt()],
-                                      style: const TextStyle(
-                                        fontSize: 11,
-                                        color: const Color(0xFF98A2B3),
+                              ),
+                              const SizedBox(height: 18),
+                              SizedBox(
+                                height: 230,
+                                child: BarChart(
+                                  BarChartData(
+                                    borderData: FlBorderData(show: false),
+                                    gridData: const FlGridData(show: false),
+                                    titlesData: FlTitlesData(
+                                      leftTitles: const AxisTitles(
+                                        sideTitles: SideTitles(
+                                          showTitles: false,
+                                        ),
+                                      ),
+                                      rightTitles: const AxisTitles(
+                                        sideTitles: SideTitles(
+                                          showTitles: false,
+                                        ),
+                                      ),
+                                      topTitles: const AxisTitles(
+                                        sideTitles: SideTitles(
+                                          showTitles: false,
+                                        ),
+                                      ),
+                                      bottomTitles: AxisTitles(
+                                        sideTitles: SideTitles(
+                                          showTitles: true,
+                                          getTitlesWidget: (v, _) => Text(
+                                            [
+                                              'س',
+                                              'ح',
+                                              'ن',
+                                              'ث',
+                                              'ر',
+                                              'خ',
+                                              'ج',
+                                            ][v.toInt().clamp(0, 6).toInt()],
+                                            style: const TextStyle(
+                                              fontSize: 11,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    barGroups: List.generate(
+                                      7,
+                                      (i) => BarChartGroupData(
+                                        x: i,
+                                        barRods: [
+                                          BarChartRodData(
+                                            toY: [
+                                              12,
+                                              18,
+                                              15,
+                                              21,
+                                              17,
+                                              19,
+                                              14,
+                                            ][i].toDouble(),
+                                            color: const Color(0xFF315CFF),
+                                            width: 16,
+                                            borderRadius: BorderRadius.circular(
+                                              4,
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ),
                                 ),
                               ),
-                              barGroups: List.generate(
-                                7,
-                                (i) => BarChartGroupData(
-                                  x: i,
-                                  barRods: [
-                                    BarChartRodData(
-                                      toY: [
-                                        12,
-                                        18,
-                                        15,
-                                        21,
-                                        17,
-                                        19,
-                                        14,
-                                      ][i].toDouble(),
-                                      color: const Color(0xFF0F766E),
-                                      width: 18,
-                                      borderRadius: BorderRadius.circular(5),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
+                            ],
                           ),
                         ),
                       ),
                     ),
                     if (c.maxWidth > 850)
-                      const SizedBox(width: 20)
+                      const SizedBox(width: 18)
                     else
-                      const SizedBox(height: 20),
-Expanded(
+                      const SizedBox(height: 18),
+                    Expanded(
                       flex: c.maxWidth > 850 ? 2 : 0,
-                      child: SectionCard(
-                        title: 'حالة الاشتراكات',
-                        subtitle: 'توزيع سداد الرسوم الشهرية',
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              height: 190,
-                              child: Padding(
-                                padding: const EdgeInsets.only(bottom: 12),
+                      child: Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(20),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                'حالة الاشتراكات',
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+                              SizedBox(
+                                height: 220,
                                 child: PieChart(
                                   PieChartData(
-                                    sectionsSpace: 3,
-                                    centerSpaceRadius: 46,
+                                    sectionsSpace: 4,
+                                    centerSpaceRadius: 48,
                                     sections: [
                                       PieChartSectionData(
                                         value: 68,
-                                        color: const Color(0xFF12B76A),
+                                        color: Colors.green,
                                         title: '68%',
-                                        radius: 52,
+                                        radius: 55,
                                         titleStyle: const TextStyle(
                                           color: Colors.white,
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 11,
                                         ),
                                       ),
                                       PieChartSectionData(
                                         value: 20,
-                                        color: const Color(0xFFF79009),
+                                        color: Colors.orange,
                                         title: '20%',
-                                        radius: 52,
+                                        radius: 55,
                                         titleStyle: const TextStyle(
                                           color: Colors.white,
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 11,
                                         ),
                                       ),
                                       PieChartSectionData(
                                         value: 12,
-                                        color: const Color(0xFFF04438),
+                                        color: Colors.redAccent,
                                         title: '12%',
-                                        radius: 52,
+                                        radius: 55,
                                         titleStyle: const TextStyle(
                                           color: Colors.white,
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 11,
                                         ),
                                       ),
                                     ],
                                   ),
                                 ),
                               ),
-                            ),
-                            const Wrap(
-                              spacing: 12,
-                              runSpacing: 8,
-                              crossAxisAlignment: WrapCrossAlignment.center,
-                              children: [
-                                _LegendDot(
-                                  const Color(0xFF12B76A),
-                                  'مدفوع',
-                                ),
-                                _LegendDot(
-                                  const Color(0xFFF79009),
-                                  'جزئي',
-                                ),
-                                _LegendDot(
-                                  const Color(0xFFF04438),
-                                  'متأخر',
-                                ),
-                              ],
-                            ),
-                          ],
+                              const Wrap(
+                                spacing: 12,
+                                children: [
+                                  Text(
+                                    '● مدفوع',
+                                    style: TextStyle(color: Colors.green),
+                                  ),
+                                  Text(
+                                    '● جزئي',
+                                    style: TextStyle(color: Colors.orange),
+                                  ),
+                                  Text(
+                                    '● متأخر',
+                                    style: TextStyle(color: Colors.red),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -243,30 +260,6 @@ Expanded(
   }
 }
 
-class _LegendDot extends StatelessWidget {
-  const _LegendDot(this.color, this.label);
-  final Color color;
-  final String label;
-  @override
-  Widget build(BuildContext context) => Row(
-    mainAxisSize: MainAxisSize.min,
-    crossAxisAlignment: CrossAxisAlignment.center,
-    children: [
-      Container(
-        width: 8,
-        height: 8,
-        decoration: BoxDecoration(
-          color: color,
-          borderRadius: const BorderRadius.all(Radius.circular(999)),
-        ),
-      ),
-      const SizedBox(width: 6),
-      Text(
-        label,
-        style: const TextStyle(fontSize: 12, color: AppTheme.muted),
-      ),
-    ],
-  );
 class _AcademyHero extends StatelessWidget {
   const _AcademyHero();
   @override
@@ -275,78 +268,63 @@ class _AcademyHero extends StatelessWidget {
     duration: const Duration(milliseconds: 700),
     curve: Curves.easeOutCubic,
     builder: (context, value, _) => Container(
-      height: 112,
-      padding: const EdgeInsets.fromLTRB(26, 0, 16, 0),
+      height: 94,
+      padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 14),
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: const [Color(0xFF117B72), Color(0xFF0C4F47)],
-        ),
-        borderRadius: const BorderRadius.all(Radius.circular(20)),
+        color: const Color(0xFF236D6B),
+        borderRadius: BorderRadius.circular(10),
       ),
       child: Row(
         children: [
           Container(
-            width: 54,
-            height: 54,
+            width: 70,
+            height: 66,
             decoration: BoxDecoration(
-              color: const Color(0x26FFFFFF),
-              borderRadius: const BorderRadius.all(Radius.circular(15)),
+              color: const Color(0x332B9290),
+              borderRadius: BorderRadius.circular(10),
             ),
-            child: const Center(
-              child: Icon(
-                Icons.bar_chart_rounded,
-                color: const Color(0xFFB9E3DA),
-                size: 27,
-              ),
+            child: const Icon(
+              Icons.bar_chart_rounded,
+              color: Color(0xFFE39A73),
+              size: 48,
             ),
           ),
-          const SizedBox(width: 18),
+          const SizedBox(width: 20),
           const Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text(
+                Text(
                   'الأكاديمية تسير بإيقاع جيد',
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 17,
-                    fontWeight: FontWeight.w700,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(height: 6),
-                const Text(
+                SizedBox(height: 5),
+                Text(
                   'استمر في متابعة الحضور والمدفوعات للحفاظ على هذا الأداء',
-                  style: TextStyle(
-                    color: const Color(0xFFCBE2DE),
-                    fontSize: 12,
-                  ),
+                  style: TextStyle(color: Color(0xFFC8E0DE), fontSize: 9),
                 ),
               ],
             ),
           ),
-          const SizedBox(width: 18),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 '${(value * 87).round()}٪',
                 style: const TextStyle(
                   color: Colors.white,
-                  fontSize: 30,
-                  fontWeight: FontWeight.w700,
+                  fontSize: 29,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 2),
-              const Text(
+              Text(
                 'معدل الأداء',
-                style: TextStyle(
-                  color: const Color(0xFFCBE2DE),
-                  fontSize: 11,
-                ),
+                style: TextStyle(color: Color(0xFFC8E0DE), fontSize: 9),
               ),
             ],
           ),
@@ -355,6 +333,3 @@ class _AcademyHero extends StatelessWidget {
     ),
   );
 }
-}
-              ),
-              const SizedBox(height: 22),
