@@ -18,6 +18,49 @@ import '../../features/admain/teachers/presentation/pages/teachers_page.dart';
 import '../widgets/app_shell.dart';
 import 'router_refresh.dart';
 
+final _adminDashboardNavigatorKey = GlobalKey<NavigatorState>(
+  debugLabel: 'admin-dashboard',
+);
+final _adminStudentsNavigatorKey = GlobalKey<NavigatorState>(
+  debugLabel: 'admin-students',
+);
+final _adminTeachersNavigatorKey = GlobalKey<NavigatorState>(
+  debugLabel: 'admin-teachers',
+);
+final _adminGroupsNavigatorKey = GlobalKey<NavigatorState>(
+  debugLabel: 'admin-groups',
+);
+final _adminLessonsNavigatorKey = GlobalKey<NavigatorState>(
+  debugLabel: 'admin-lessons',
+);
+final _adminAttendanceNavigatorKey = GlobalKey<NavigatorState>(
+  debugLabel: 'admin-attendance',
+);
+final _adminPaymentsNavigatorKey = GlobalKey<NavigatorState>(
+  debugLabel: 'admin-payments',
+);
+final _adminReportsNavigatorKey = GlobalKey<NavigatorState>(
+  debugLabel: 'admin-reports',
+);
+final _adminSettingsNavigatorKey = GlobalKey<NavigatorState>(
+  debugLabel: 'admin-settings',
+);
+final _teacherDashboardNavigatorKey = GlobalKey<NavigatorState>(
+  debugLabel: 'teacher-dashboard',
+);
+final _teacherGroupsNavigatorKey = GlobalKey<NavigatorState>(
+  debugLabel: 'teacher-groups',
+);
+final _teacherLessonsNavigatorKey = GlobalKey<NavigatorState>(
+  debugLabel: 'teacher-lessons',
+);
+final _teacherAttendanceNavigatorKey = GlobalKey<NavigatorState>(
+  debugLabel: 'teacher-attendance',
+);
+final _teacherReportsNavigatorKey = GlobalKey<NavigatorState>(
+  debugLabel: 'teacher-reports',
+);
+
 GoRouter createRouter(AuthCubit auth) {
   return GoRouter(
     initialLocation: '/login',
@@ -40,83 +83,156 @@ GoRouter createRouter(AuthCubit auth) {
     },
     errorBuilder: (context, state) => const NotFoundPage(),
     routes: [
-      GoRoute(path: '/login', builder: (_, __) => const LoginPage()),
-      ShellRoute(
-        builder: (context, state, child) => AppShell(child: child),
-        routes: [
-          GoRoute(
-            path: '/admin/dashboard',
-            builder: (_, __) => const DashboardPage(),
+      GoRoute(path: '/login', builder: (_, _) => const LoginPage()),
+      StatefulShellRoute.indexedStack(
+        builder: (context, state, navigationShell) =>
+            AppShell(navigationShell: navigationShell),
+        branches: [
+          StatefulShellBranch(
+            navigatorKey: _adminDashboardNavigatorKey,
+            routes: [
+              GoRoute(
+                path: '/admin/dashboard',
+                builder: (_, _) => const DashboardPage(),
+              ),
+            ],
           ),
-          GoRoute(
-            path: '/admin/students',
-            builder: (_, __) => const StudentsPage(),
+          StatefulShellBranch(
+            navigatorKey: _adminStudentsNavigatorKey,
+            routes: [
+              GoRoute(
+                path: '/admin/students',
+                builder: (_, _) => const StudentsPage(),
+                routes: [
+                  GoRoute(
+                    path: ':id',
+                    builder: (_, state) => StudentDetailsPage(
+                      studentId: state.pathParameters['id']!,
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
-          GoRoute(
-            path: '/admin/students/:id',
-            builder: (_, state) {
-              return StudentDetailsPage(studentId: state.pathParameters['id']!);
-            },
+          StatefulShellBranch(
+            navigatorKey: _adminTeachersNavigatorKey,
+            routes: [
+              GoRoute(
+                path: '/admin/teachers',
+                builder: (_, _) => const TeachersPage(),
+              ),
+            ],
           ),
-          GoRoute(
-            path: '/admin/teachers',
-            builder: (_, __) => const TeachersPage(),
+          StatefulShellBranch(
+            navigatorKey: _adminGroupsNavigatorKey,
+            routes: [
+              GoRoute(
+                path: '/admin/groups',
+                builder: (_, _) => const GroupsPage(),
+              ),
+            ],
           ),
-          GoRoute(
-            path: '/admin/groups',
-            builder: (_, __) => const GroupsPage(),
+          StatefulShellBranch(
+            navigatorKey: _adminLessonsNavigatorKey,
+            routes: [
+              GoRoute(
+                path: '/admin/lessons',
+                builder: (_, _) => const LessonsPage(),
+              ),
+            ],
           ),
-          GoRoute(
-            path: '/admin/lessons',
-            builder: (_, __) => const LessonsPage(),
+          StatefulShellBranch(
+            navigatorKey: _adminAttendanceNavigatorKey,
+            routes: [
+              GoRoute(
+                path: '/admin/attendance',
+                builder: (_, _) => const AttendancePage(),
+              ),
+            ],
           ),
-          GoRoute(
-            path: '/admin/attendance',
-            builder: (_, __) => const AttendancePage(),
+          StatefulShellBranch(
+            navigatorKey: _adminPaymentsNavigatorKey,
+            routes: [
+              GoRoute(
+                path: '/admin/payments',
+                builder: (_, _) => const PaymentsPage(),
+              ),
+            ],
           ),
-          GoRoute(
-            path: '/admin/payments',
-            builder: (_, __) => const PaymentsPage(),
+          StatefulShellBranch(
+            navigatorKey: _adminReportsNavigatorKey,
+            routes: [
+              GoRoute(
+                path: '/admin/reports',
+                builder: (_, _) => const ReportsPage(),
+              ),
+            ],
           ),
-          GoRoute(
-            path: '/admin/reports',
-            builder: (_, __) => const ReportsPage(),
+          StatefulShellBranch(
+            navigatorKey: _adminSettingsNavigatorKey,
+            routes: [
+              GoRoute(
+                path: '/admin/settings',
+                builder: (_, _) => const SettingsPage(),
+              ),
+            ],
           ),
-          GoRoute(
-            path: '/admin/settings',
-            builder: (_, __) => const SettingsPage(),
+          StatefulShellBranch(
+            navigatorKey: _teacherDashboardNavigatorKey,
+            routes: [
+              GoRoute(
+                path: '/teacher/dashboard',
+                builder: (_, _) => const DashboardPage(),
+              ),
+            ],
           ),
-          GoRoute(
-            path: '/teacher/dashboard',
-            builder: (_, __) => const DashboardPage(),
+          StatefulShellBranch(
+            navigatorKey: _teacherGroupsNavigatorKey,
+            routes: [
+              GoRoute(
+                path: '/teacher/groups',
+                builder: (_, _) => const GroupsPage(),
+              ),
+            ],
           ),
-          GoRoute(
-            path: '/teacher/groups',
-            builder: (_, __) => const GroupsPage(),
+          StatefulShellBranch(
+            navigatorKey: _teacherLessonsNavigatorKey,
+            routes: [
+              GoRoute(
+                path: '/teacher/lessons',
+                builder: (_, _) => const LessonsPage(),
+              ),
+            ],
           ),
-          GoRoute(
-            path: '/teacher/lessons',
-            builder: (_, __) => const LessonsPage(),
+          StatefulShellBranch(
+            navigatorKey: _teacherAttendanceNavigatorKey,
+            routes: [
+              GoRoute(
+                path: '/teacher/attendance',
+                builder: (_, _) => const AttendancePage(),
+              ),
+            ],
           ),
-          GoRoute(
-            path: '/teacher/attendance',
-            builder: (_, __) => const AttendancePage(),
-          ),
-          GoRoute(
-            path: '/teacher/reports',
-            builder: (_, __) => const ReportsPage(),
+          StatefulShellBranch(
+            navigatorKey: _teacherReportsNavigatorKey,
+            routes: [
+              GoRoute(
+                path: '/teacher/reports',
+                builder: (_, _) => const ReportsPage(),
+              ),
+            ],
           ),
         ],
       ),
-      GoRoute(path: '/teacher', builder: (_, __) => const TeacherShell()),
+      GoRoute(path: '/teacher', builder: (_, _) => const TeacherShell()),
       // Teacher workflow pages (pushed from TeacherShell views)
       GoRoute(
         path: '/teacher/lesson/create',
-        builder: (_, __) => const TeacherCreateLessonPage(),
+        builder: (_, _) => const TeacherCreateLessonPage(),
       ),
       GoRoute(
         path: '/teacher/profile/edit',
-        builder: (_, __) => const TeacherProfileEditPage(),
+        builder: (_, _) => const TeacherProfileEditPage(),
       ),
       GoRoute(
         path: '/teacher/group/:id',
