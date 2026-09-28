@@ -6,13 +6,13 @@ import '../models/entities.dart';
 /// Standard page scaffold: title, subtitle, optional action and animated body.
 class PageFrame extends StatelessWidget {
   const PageFrame({
-    required this.title,
-    required this.subtitle,
+    this.title,
+    this.subtitle,
     required this.child,
     this.action,
     super.key,
   });
-  final String title, subtitle;
+  final String? title, subtitle;
   final Widget child;
   final Widget? action;
   @override
@@ -36,23 +36,25 @@ class PageFrame extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          title,
-                          style: const TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.w700,
-                            color: AppTheme.ink,
-                            height: 1.25,
+                        if (title != null)
+                          Text(
+                            title!,
+                            style: const TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.w700,
+                              color: AppTheme.ink,
+                              height: 1.25,
+                            ),
                           ),
-                        ),
                         const SizedBox(height: 6),
-                        Text(
-                          subtitle,
-                          style: const TextStyle(
-                            fontSize: 13.5,
-                            color: AppTheme.muted,
+                        if (subtitle != null)
+                          Text(
+                            subtitle!,
+                            style: const TextStyle(
+                              fontSize: 13.5,
+                              color: AppTheme.muted,
+                            ),
                           ),
-                        ),
                       ],
                     ),
                   ),
@@ -63,7 +65,7 @@ class PageFrame extends StatelessWidget {
                     ),
                 ],
               ),
-              const SizedBox(height: 26),
+              if (title != null) const SizedBox(height: 10),
               child,
             ],
           ),
@@ -101,7 +103,10 @@ class SearchFilterBar extends StatelessWidget {
             style: const TextStyle(fontSize: 13),
             decoration: InputDecoration(
               hintText: hint,
-              hintStyle: const TextStyle(fontSize: 12.5, color: AppTheme.subtle),
+              hintStyle: const TextStyle(
+                fontSize: 12.5,
+                color: AppTheme.subtle,
+              ),
               prefixIcon: const Icon(
                 Icons.search,
                 size: 18,
@@ -173,6 +178,7 @@ class StatusChip extends StatelessWidget {
     );
   }
 }
+
 /// KPI metric card with icon tile, headline value and optional trend caption.
 class MetricCard extends StatelessWidget {
   const MetricCard({
@@ -257,7 +263,7 @@ class MetricCard extends StatelessWidget {
 
 /// Friendly empty state with a soft icon tile.
 class EmptyState extends StatelessWidget {
-  const EmptyState({required this.message, super.key});
+  const EmptyState({this.message = 'لا توجد نتائج', super.key});
   final String message;
   @override
   Widget build(BuildContext context) => Padding(
@@ -300,6 +306,7 @@ class EmptyState extends StatelessWidget {
     ),
   );
 }
+
 /// Card with a standardized section header (title + optional subtitle/action).
 class SectionCard extends StatelessWidget {
   const SectionCard({
@@ -339,10 +346,7 @@ class SectionCard extends StatelessWidget {
                       const SizedBox(height: 4),
                       Text(
                         subtitle!,
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: AppTheme.muted,
-                        ),
+                        style: TextStyle(fontSize: 12, color: AppTheme.muted),
                       ),
                     ],
                   ],
@@ -358,6 +362,7 @@ class SectionCard extends StatelessWidget {
     ),
   );
 }
+
 /// Export / print actions used across tables.
 class ExportActions extends StatelessWidget {
   const ExportActions({super.key});
