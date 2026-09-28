@@ -2,6 +2,7 @@ import 'package:academy_management_system/core/common/custom_textfield.dart';
 import 'package:academy_management_system/core/common/logo.dart';
 import 'package:academy_management_system/core/config/business_config.dart';
 import 'package:academy_management_system/core/layout/app_responsive.dart';
+import 'package:academy_management_system/core/utils/validators.dart';
 import 'package:academy_management_system/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:academy_management_system/features/auth/presentation/widget/brand_panel.dart';
 import 'package:academy_management_system/features/auth/presentation/widget/role_selector.dart';
@@ -16,18 +17,32 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final username = TextEditingController(text: 'admin@academy.com');
-  final password = TextEditingController(text: 'admin123');
+  late TextEditingController username;
+  late TextEditingController password;
+  late TextEditingController teacherCode;
   final formKey = GlobalKey<FormState>();
 
-  bool obscurePassword = true;
+  // navigation in tap admain and teacher
   ValueNotifier<LoginRole> selectedRole = ValueNotifier(LoginRole.admin);
+  @override
+  void initState() {
+    username = TextEditingController();
+    password = TextEditingController();
+    teacherCode = TextEditingController();
+    super.initState();
+  }
 
   @override
   void dispose() {
     username.dispose();
     password.dispose();
     super.dispose();
+  }
+
+  void _login() {
+    // if (!formKey.currentState!.validate()) return;
+
+    context.read<AuthCubit>().login(username.text.trim(), password.text);
   }
 
   @override
@@ -131,7 +146,6 @@ class _LoginPageState extends State<LoginPage> {
                   }
                 },
               ),
-              const SizedBox(height: 8),
 
               const SizedBox(height: 20),
 
@@ -179,57 +193,11 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 22),
 
               // Demo box
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 18,
-                  vertical: 14,
-                ),
-                decoration: BoxDecoration(
-                  color: const Color(0xFFF0EDE5),
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: const Color(0xFFE3DED3)),
-                ),
-                child: Column(
-                  children: [
-                    const Text(
-                      'ليس لديك حساب جاهز؟',
-                      style: TextStyle(color: LoginColors.muted, fontSize: 11),
-                    ),
-                    const SizedBox(height: 5),
-                    const Text(
-                      'استخدم البيانات التجريبية',
-                      style: TextStyle(
-                        color: LoginColors.teal,
-                        fontSize: 11,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                    const SizedBox(height: 5),
-                    Text(
-                      selectedRole == LoginRole.admin
-                          ? 'admin@academy.com  ·  admin123'
-                          : 'teacher@academy.com  ·  teacher123',
-                      textDirection: TextDirection.ltr,
-                      style: const TextStyle(
-                        color: LoginColors.muted,
-                        fontSize: 9,
-                        letterSpacing: .5,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
             ],
           ),
         );
       },
     );
-  }
-
-  void _login() {
-    if (!formKey.currentState!.validate()) return;
-
-    context.read<AuthCubit>().login(username.text.trim(), password.text);
   }
 
   //teacher
@@ -240,17 +208,12 @@ class _LoginPageState extends State<LoginPage> {
 
         const SizedBox(height: 8),
         CustomTextField(
-          controller: username,
-          keyboardType: TextInputType.emailAddress,
+          controller: teacherCode,
+          key: const ValueKey('teacher_code_field'),
           textDirection: TextDirection.ltr,
           textAlign: TextAlign.right,
 
-          validator: (value) {
-            if (value == null || value.trim().isEmpty) {
-              return 'أدخل البريد الإلكتروني';
-            }
-            return null;
-          },
+          validator: Validators.required,
         ),
       ],
     );
@@ -264,17 +227,13 @@ class _LoginPageState extends State<LoginPage> {
 
         const SizedBox(height: 8),
         CustomTextField(
+          key: const ValueKey('username_admain_field'),
           controller: username,
           keyboardType: TextInputType.emailAddress,
           textDirection: TextDirection.ltr,
           textAlign: TextAlign.right,
 
-          validator: (value) {
-            if (value == null || value.trim().isEmpty) {
-              return 'أدخل البريد الإلكتروني';
-            }
-            return null;
-          },
+          validator: Validators.email,
         ),
 
         const SizedBox(height: 17),
@@ -290,12 +249,7 @@ class _LoginPageState extends State<LoginPage> {
           textAlign: TextAlign.right,
           hint: "••••••••",
 
-          validator: (value) {
-            if (value == null || value.length < 6) {
-              return 'كلمة المرور 6 أحرف على الأقل';
-            }
-            return null;
-          },
+          validator: Validators.password,
         ),
       ],
     );
@@ -395,37 +349,3 @@ class _MobileTabletLayout extends StatelessWidget {
 // ==========================================================
 // Shared widgets
 // ==========================================================
-
-class FieldLabel extends StatelessWidget {
-  final String text;
-  final bool required;
-
-  const FieldLabel({super.key, required this.text, this.required = false});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Text(
-          text,
-          style: const TextStyle(
-            color: LoginColors.navy,
-            fontSize: 11,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-
-        if (required) ...[
-          const SizedBox(width: 3),
-          const Text(
-            '*',
-            style: TextStyle(
-              color: Color(0xFFD44335),
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ],
-      ],
-    );
-  }
-}

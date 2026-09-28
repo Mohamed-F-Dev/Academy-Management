@@ -2,6 +2,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../core/theme/app_theme.dart';
 import '../../../../../shared/widgets/management_widgets.dart';
 import '../../../reports/presentation/cubit/reports_cubit.dart';
 import '../../../students/presentation/cubit/students_cubit.dart';
@@ -36,34 +37,34 @@ class DashboardPage extends StatelessWidget {
                     physics: const NeverScrollableScrollPhysics(),
                     mainAxisSpacing: 14,
                     crossAxisSpacing: 14,
-                    childAspectRatio: c.maxWidth < 500 ? 1.35 : 1.8,
+                    childAspectRatio: c.maxWidth < 500 ? 1.35 : 1.75,
                     children: [
                       MetricCard(
                         title: 'إجمالي الطلاب',
                         value:
                             '${report.summary['students'] ?? students.items.length}',
                         icon: Icons.groups_rounded,
-                        color: Colors.blue,
+                        color: const Color(0xFF0F766E),
                         caption: '+12% هذا الشهر',
                       ),
                       MetricCard(
                         title: 'المدرسون',
                         value: '${report.summary['teachers'] ?? 0}',
                         icon: Icons.co_present_rounded,
-                        color: Colors.deepPurple,
+                        color: const Color(0xFF7A5AF8),
                       ),
                       MetricCard(
                         title: 'المجموعات',
                         value: '${report.summary['groups'] ?? 0}',
                         icon: Icons.category_rounded,
-                        color: Colors.orange,
+                        color: const Color(0xFFF79009),
                       ),
                       MetricCard(
                         title: 'إيرادات الشهر',
                         value:
                             '${(report.summary['revenue'] ?? 0).toStringAsFixed(0)} ج.م',
                         icon: Icons.payments_rounded,
-                        color: Colors.green,
+                        color: const Color(0xFF12B76A),
                         caption: '+8% هذا الشهر',
                       ),
                     ],
@@ -78,23 +79,12 @@ class DashboardPage extends StatelessWidget {
                   children: [
                     Expanded(
                       flex: c.maxWidth > 850 ? 3 : 0,
-                      child: Card(
-                        child: Padding(
-                          padding: const EdgeInsets.all(20),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                'الحضور خلال الأسبوع',
-                                style: TextStyle(
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              const SizedBox(height: 18),
-                              SizedBox(
-                                height: 230,
-                                child: BarChart(
+                      child: SectionCard(
+                        title: 'الحضور خلال الأسبوع',
+                        subtitle: 'عدد الطلاب الحاضرين لكل يوم',
+                        child: SizedBox(
+                          height: 240,
+                          child: BarChart(
                                   BarChartData(
                                     borderData: FlBorderData(show: false),
                                     gridData: const FlGridData(show: false),
@@ -149,10 +139,10 @@ class DashboardPage extends StatelessWidget {
                                               19,
                                               14,
                                             ][i].toDouble(),
-                                            color: const Color(0xFF315CFF),
-                                            width: 16,
+                                            color: const Color(0xFF0F766E),
+                                            width: 18,
                                             borderRadius: BorderRadius.circular(
-                                              4,
+                                              5,
                                             ),
                                           ),
                                         ],
@@ -161,9 +151,6 @@ class DashboardPage extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                            ],
-                          ),
-                        ),
                       ),
                     ),
                     if (c.maxWidth > 850)
@@ -172,30 +159,22 @@ class DashboardPage extends StatelessWidget {
                       const SizedBox(height: 18),
                     Expanded(
                       flex: c.maxWidth > 850 ? 2 : 0,
-                      child: Card(
-                        child: Padding(
-                          padding: const EdgeInsets.all(20),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                'حالة الاشتراكات',
-                                style: TextStyle(
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              const SizedBox(height: 8),
-                              SizedBox(
-                                height: 220,
-                                child: PieChart(
+                      child: SectionCard(
+                        title: 'حالة الاشتراكات',
+                        subtitle: 'توزيع سداد الرسوم الشهرية',
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              height: 190,
+                              child: PieChart(
                                   PieChartData(
                                     sectionsSpace: 4,
                                     centerSpaceRadius: 48,
                                     sections: [
                                       PieChartSectionData(
                                         value: 68,
-                                        color: Colors.green,
+                                        color: const Color(0xFF12B76A),
                                         title: '68%',
                                         radius: 55,
                                         titleStyle: const TextStyle(
@@ -205,7 +184,7 @@ class DashboardPage extends StatelessWidget {
                                       ),
                                       PieChartSectionData(
                                         value: 20,
-                                        color: Colors.orange,
+                                        color: const Color(0xFFF79009),
                                         title: '20%',
                                         radius: 55,
                                         titleStyle: const TextStyle(
@@ -215,7 +194,7 @@ class DashboardPage extends StatelessWidget {
                                       ),
                                       PieChartSectionData(
                                         value: 12,
-                                        color: Colors.redAccent,
+                                        color: const Color(0xFFF04438),
                                         title: '12%',
                                         radius: 55,
                                         titleStyle: const TextStyle(
@@ -228,25 +207,26 @@ class DashboardPage extends StatelessWidget {
                                 ),
                               ),
                               const Wrap(
-                                spacing: 12,
+                                spacing: 14,
+                                runSpacing: 8,
+                                crossAxisAlignment: WrapCrossAlignment.center,
                                 children: [
-                                  Text(
-                                    '● مدفوع',
-                                    style: TextStyle(color: Colors.green),
+                                  _LegendDot(
+                                    const Color(0xFF12B76A),
+                                    'مدفوع',
                                   ),
-                                  Text(
-                                    '● جزئي',
-                                    style: TextStyle(color: Colors.orange),
+                                  _LegendDot(
+                                    const Color(0xFFF79009),
+                                    'جزئي',
                                   ),
-                                  Text(
-                                    '● متأخر',
-                                    style: TextStyle(color: Colors.red),
+                                  _LegendDot(
+                                    const Color(0xFFF04438),
+                                    'متأخر',
                                   ),
                                 ],
                               ),
                             ],
                           ),
-                        ),
                       ),
                     ),
                   ],
@@ -268,68 +248,109 @@ class _AcademyHero extends StatelessWidget {
     duration: const Duration(milliseconds: 700),
     curve: Curves.easeOutCubic,
     builder: (context, value, _) => Container(
-      height: 94,
-      padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 14),
+      height: 116,
+      padding: const EdgeInsets.fromLTRB(26, 0, 16, 0),
       decoration: BoxDecoration(
-        color: const Color(0xFF236D6B),
-        borderRadius: BorderRadius.circular(10),
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: const [Color(0xFF117B72), Color(0xFF0C4F47)],
+        ),
+        borderRadius: const BorderRadius.all(Radius.circular(20)),
       ),
       child: Row(
         children: [
           Container(
-            width: 70,
-            height: 66,
+            width: 54,
+            height: 54,
             decoration: BoxDecoration(
-              color: const Color(0x332B9290),
-              borderRadius: BorderRadius.circular(10),
+              color: const Color(0x26FFFFFF),
+              borderRadius: const BorderRadius.all(Radius.circular(15)),
             ),
-            child: const Icon(
-              Icons.bar_chart_rounded,
-              color: Color(0xFFE39A73),
-              size: 48,
+            child: const Center(
+              child: Icon(
+                Icons.bar_chart_rounded,
+                color: const Color(0xFFB9E3DA),
+                size: 27,
+              ),
             ),
           ),
-          const SizedBox(width: 20),
+          const SizedBox(width: 18),
           const Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
+                const Text(
                   'الأكاديمية تسير بإيقاع جيد',
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
+                    fontSize: 17,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
-                SizedBox(height: 5),
-                Text(
+                const SizedBox(height: 6),
+                const Text(
                   'استمر في متابعة الحضور والمدفوعات للحفاظ على هذا الأداء',
-                  style: TextStyle(color: Color(0xFFC8E0DE), fontSize: 9),
+                  style: TextStyle(
+                    color: const Color(0xFFCBE2DE),
+                    fontSize: 12,
+                  ),
                 ),
               ],
             ),
           ),
+          const SizedBox(width: 18),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 '${(value * 87).round()}٪',
                 style: const TextStyle(
                   color: Colors.white,
-                  fontSize: 29,
-                  fontWeight: FontWeight.bold,
+                  fontSize: 30,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
-              Text(
+              const SizedBox(height: 2),
+              const Text(
                 'معدل الأداء',
-                style: TextStyle(color: Color(0xFFC8E0DE), fontSize: 9),
+                style: TextStyle(
+                  color: const Color(0xFFCBE2DE),
+                  fontSize: 11,
+                ),
               ),
             ],
           ),
         ],
       ),
     ),
+  );
+}
+
+class _LegendDot extends StatelessWidget {
+  const _LegendDot(this.color, this.label);
+  final Color color;
+  final String label;
+  @override
+  Widget build(BuildContext context) => Row(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: [
+      Container(
+        width: 8,
+        height: 8,
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: const BorderRadius.all(Radius.circular(999)),
+        ),
+      ),
+      const SizedBox(width: 6),
+      Text(
+        label,
+        style: const TextStyle(fontSize: 12, color: AppTheme.muted),
+      ),
+    ],
   );
 }

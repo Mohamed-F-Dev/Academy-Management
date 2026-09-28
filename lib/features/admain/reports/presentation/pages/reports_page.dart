@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../core/theme/app_theme.dart';
 import '../../../../../shared/models/entities.dart';
 import '../../../../../shared/widgets/management_widgets.dart';
 import '../cubit/reports_cubit.dart';
@@ -29,25 +30,25 @@ class ReportsPage extends StatelessWidget {
                   title: 'حضور اليوم',
                   value: '88%',
                   icon: Icons.fact_check,
-                  color: Colors.green,
+                  color: const Color(0xFF12B76A),
                 ),
                 MetricCard(
                   title: 'متوسط الحضور',
                   value: '91%',
                   icon: Icons.trending_up,
-                  color: Colors.blue,
+                  color: const Color(0xFF0F766E),
                 ),
                 MetricCard(
                   title: 'المبالغ المحصلة',
                   value: '${state.summary['revenue'] ?? 0} ج.م',
                   icon: Icons.payments,
-                  color: Colors.orange,
+                  color: const Color(0xFFF79009),
                 ),
                 MetricCard(
                   title: 'طلاب متأخرون',
                   value: '6',
                   icon: Icons.warning_amber,
-                  color: Colors.red,
+                  color: const Color(0xFFF04438),
                 ),
               ],
             ),

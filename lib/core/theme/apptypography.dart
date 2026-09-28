@@ -11,7 +11,7 @@ class AppTypography {
 
   static TextStyle h1 = TextStyle(
     fontFamily: fontFamily,
-    fontSize: (32.sp).clamp(30.0, 38.0).toDouble(),
+    fontSize: (32.sp).clamp(30.0, 35.0).toDouble(),
     fontWeight: FontWeight.bold, // سيستخدم Cairo-Bold تلقائياً
     letterSpacing: -0.5,
     color: Colors.black, // استبدله بـ AppColors.textPrimary
@@ -20,7 +20,7 @@ class AppTypography {
 
   static TextStyle h2 = TextStyle(
     fontFamily: fontFamily,
-    fontSize: (24.sp).clamp(21.0, 30.0).toDouble(),
+    fontSize: (24.sp).clamp(21.0, 26.0).toDouble(),
     fontWeight: FontWeight.bold,
     height: 1.3,
     color: Colors.black,
@@ -28,7 +28,7 @@ class AppTypography {
 
   static TextStyle h3 = TextStyle(
     fontFamily: fontFamily,
-    fontSize: (20.sp).clamp(18.0, 24.0).toDouble(),
+    fontSize: (20.sp).clamp(18.0, 22.0).toDouble(),
     fontWeight: FontWeight.w600, // سيستخدم Cairo-SemiBold تلقائياً
     height: 1.4,
     color: Colors.black,
@@ -36,7 +36,7 @@ class AppTypography {
 
   static TextStyle h4 = TextStyle(
     fontFamily: fontFamily,
-    fontSize: (18.sp).clamp(16.0, 22.0).toDouble(),
+    fontSize: (18.sp).clamp(16.0, 20.0).toDouble(),
     fontWeight: FontWeight.w600,
     height: 1.4,
     color: Colors.black,
@@ -44,7 +44,7 @@ class AppTypography {
 
   static TextStyle h5 = TextStyle(
     fontFamily: fontFamily,
-    fontSize: (16.sp).clamp(15.0, 20.0).toDouble(),
+    fontSize: (16.sp).clamp(15.0, 18.0).toDouble(),
     fontWeight: FontWeight.w600,
     height: 1.5,
     color: Colors.black,
@@ -52,7 +52,7 @@ class AppTypography {
 
   static TextStyle h6 = TextStyle(
     fontFamily: fontFamily,
-    fontSize: (14.sp).clamp(13.0, 18.0).toDouble(),
+    fontSize: (14.sp).clamp(13.0, 16.0).toDouble(),
     fontWeight: FontWeight.w600,
     height: 1.5,
     color: Colors.black,
@@ -62,14 +62,14 @@ class AppTypography {
 
   static TextStyle bodyLarge = TextStyle(
     fontFamily: fontFamily,
-    fontSize: (16.sp).clamp(15.0, 20.0).toDouble(),
+    fontSize: (16.sp).clamp(15.0, 18.0).toDouble(),
     fontWeight: FontWeight.normal, // سيستخدم Cairo-Regular
     height: 1.5,
   );
 
   static TextStyle bodyMedium = TextStyle(
     fontFamily: fontFamily,
-    fontSize: (14.sp).clamp(13.0, 18.0).toDouble(),
+    fontSize: (14.sp).clamp(13.0, 16.0).toDouble(),
     height: 1.5,
   );
 

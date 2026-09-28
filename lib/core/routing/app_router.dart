@@ -109,6 +109,35 @@ GoRouter createRouter(AuthCubit auth) {
         ],
       ),
       GoRoute(path: '/teacher', builder: (_, __) => const TeacherShell()),
+      // Teacher workflow pages (pushed from TeacherShell views)
+      GoRoute(
+        path: '/teacher/lesson/create',
+        builder: (_, __) => const TeacherCreateLessonPage(),
+      ),
+      GoRoute(
+        path: '/teacher/profile/edit',
+        builder: (_, __) => const TeacherProfileEditPage(),
+      ),
+      GoRoute(
+        path: '/teacher/group/:id',
+        builder: (_, state) =>
+            TeacherGroupDetailsPage(groupId: state.pathParameters['id']!),
+      ),
+      GoRoute(
+        path: '/teacher/student/:id',
+        builder: (_, state) =>
+            TeacherStudentDetailsPage(studentId: state.pathParameters['id']!),
+      ),
+      GoRoute(
+        path: '/teacher/lesson/:id',
+        builder: (_, state) =>
+            TeacherLessonDetailsPage(lessonId: state.pathParameters['id']!),
+      ),
+      GoRoute(
+        path: '/teacher/attendance/:id',
+        builder: (_, state) =>
+            TeacherAttendancePage(lessonId: state.pathParameters['id']!),
+      ),
     ],
   );
 }

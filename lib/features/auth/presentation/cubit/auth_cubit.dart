@@ -45,7 +45,7 @@ class AuthCubit extends Cubit<AuthState> {
     //     ),
     //   );
     // }
-    emit(AuthState(status: AuthStatus.authenticated, role: UserRole.teacher));
+    emit(AuthState(status: AuthStatus.authenticated, role: UserRole.admin));
   }
 
   void logout() => emit(const AuthState());

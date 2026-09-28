@@ -83,7 +83,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             labelStyle: AppTypography.h6.copyWith(
               color: Colors.black.withValues(alpha: 0.6),
             ),
-            errorStyle: AppTypography.h6.copyWith(color: Colors.red),
+            errorStyle: AppTypography.bodySmall.copyWith(color: Colors.red),
             labelText: widget.label,
             hintStyle: TextStyle(
               color: AppColors.textSecondary.withValues(alpha: 0.6),
