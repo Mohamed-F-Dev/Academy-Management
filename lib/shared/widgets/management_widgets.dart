@@ -6,13 +6,13 @@ import '../models/entities.dart';
 /// Standard page scaffold: title, subtitle, optional action and animated body.
 class PageFrame extends StatelessWidget {
   const PageFrame({
-    required this.title,
-    required this.subtitle,
+    this.title,
+    this.subtitle,
     required this.child,
     this.action,
     super.key,
   });
-  final String title, subtitle;
+  final String? title, subtitle;
   final Widget child;
   final Widget? action;
   @override
@@ -36,23 +36,25 @@ class PageFrame extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          title,
-                          style: const TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.w700,
-                            color: AppTheme.ink,
-                            height: 1.25,
+                        if (title != null)
+                          Text(
+                            title!,
+                            style: const TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.w700,
+                              color: AppTheme.ink,
+                              height: 1.25,
+                            ),
                           ),
-                        ),
                         const SizedBox(height: 6),
-                        Text(
-                          subtitle,
-                          style: const TextStyle(
-                            fontSize: 13.5,
-                            color: AppTheme.muted,
+                        if (subtitle != null)
+                          Text(
+                            subtitle!,
+                            style: const TextStyle(
+                              fontSize: 13.5,
+                              color: AppTheme.muted,
+                            ),
                           ),
-                        ),
                       ],
                     ),
                   ),
@@ -63,7 +65,7 @@ class PageFrame extends StatelessWidget {
                     ),
                 ],
               ),
-              const SizedBox(height: 26),
+              if (title != null) const SizedBox(height: 10),
               child,
             ],
           ),

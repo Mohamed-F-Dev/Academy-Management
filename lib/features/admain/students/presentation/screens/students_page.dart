@@ -6,10 +6,7 @@ import 'package:academy_management_system/features/admain/students/presentation/
 import 'package:academy_management_system/features/admain/students/presentation/widget/toolbar_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
-import 'package:intl/intl.dart';
 
-import '../../../../../shared/models/entities.dart';
 import '../../../../../shared/widgets/management_widgets.dart';
 
 class StudentsPage extends StatelessWidget {

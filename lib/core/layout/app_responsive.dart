@@ -38,5 +38,9 @@ extension ResponsiveX on BuildContext {
   bool get isDesktop =>
       deviceType == DeviceType.desktopSmall ||
       deviceType == DeviceType.desktopLarge;
+
   Size get screenSize => MediaQuery.sizeOf(this);
+  bool get isDesktopSmall =>
+      screenSize.width > Breakpoints.tablet &&
+      screenSize.width <= Breakpoints.desktopSmall;
 }
