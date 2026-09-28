@@ -99,9 +99,7 @@ class _Navigation extends StatelessWidget {
     return Container(
       decoration: const BoxDecoration(
         color: AppTheme.sidebarSurface,
-        border: Border(
-          left: BorderSide(color: Color(0xFFE4E7EC), width: 1),
-        ),
+        border: Border(left: BorderSide(color: Color(0xFFE4E7EC), width: 1)),
       ),
       padding: EdgeInsets.symmetric(
         horizontal: compact ? 10 : 16,
@@ -215,13 +213,13 @@ class _NavItem extends StatelessWidget {
     final Color iconColor = logout
         ? AppTheme.danger
         : active
-            ? AppTheme.primary
-            : AppTheme.muted;
+        ? AppTheme.primary
+        : AppTheme.muted;
     final Color textColor = logout
         ? AppTheme.danger
         : active
-            ? AppTheme.primaryStrong
-            : AppTheme.body;
+        ? AppTheme.primaryStrong
+        : AppTheme.body;
     return Padding(
       padding: EdgeInsets.only(bottom: logout ? 0 : 5),
       child: Tooltip(
@@ -245,8 +243,7 @@ class _NavItem extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 13.5,
                     color: textColor,
-                    fontWeight:
-                        active ? FontWeight.w600 : FontWeight.w400,
+                    fontWeight: active ? FontWeight.w600 : FontWeight.w400,
                   ),
                 ),
           onTap: () {
@@ -326,7 +323,7 @@ class _TopBar extends StatelessWidget {
           Container(
             width: 1,
             height: 20,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               color: Color(0xFFE4E7EC),
               borderRadius: BorderRadius.circular(1),
             ),

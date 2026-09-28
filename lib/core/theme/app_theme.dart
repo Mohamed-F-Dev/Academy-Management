@@ -1,3 +1,5 @@
+import 'package:academy_management_system/core/theme/app_colors.dart';
+import 'package:academy_management_system/core/theme/apptypography.dart';
 import 'package:flutter/material.dart';
 
 /// Unified design system for the Academy management dashboard.
@@ -42,8 +44,8 @@ class AppTheme {
   static const radiusXl = 20.0;
 
   // ---- Typography ----
-  static const fontFamily = 'Segoe UI';
-  static const fontFamilyFallback = <String>['Tahoma', 'Arial'];
+  static const fontFamily = 'Cairo';
+  // static const fontFamilyFallback = <String>['Tahoma', 'Arial'];
 
   static ThemeData get light {
     final scheme = ColorScheme.fromSeed(
@@ -56,7 +58,22 @@ class AppTheme {
       colorScheme: scheme,
       scaffoldBackgroundColor: canvas,
       fontFamily: fontFamily,
-      fontFamilyFallback: fontFamilyFallback,
+      textTheme: TextTheme(
+        displayLarge: AppTypography.h1.copyWith(color: AppColors.textPrimary),
+        displayMedium: AppTypography.h2.copyWith(color: AppColors.textPrimary),
+        displaySmall: AppTypography.h3.copyWith(color: AppColors.textPrimary),
+        headlineMedium: AppTypography.h4.copyWith(color: AppColors.textPrimary),
+        bodyLarge: AppTypography.bodyLarge.copyWith(
+          color: AppColors.textPrimary,
+        ),
+        bodyMedium: AppTypography.bodyMedium.copyWith(
+          color: AppColors.textSecondary,
+        ),
+        bodySmall: AppTypography.bodySmall.copyWith(
+          color: AppColors.textSecondary,
+        ),
+      ),
+      // fontFamilyFallback: fontFamilyFallback,
       appBarTheme: const AppBarTheme(
         backgroundColor: Colors.white,
         foregroundColor: ink,
@@ -89,12 +106,13 @@ class AppTheme {
           borderRadius: BorderRadius.circular(10),
           borderSide: const BorderSide(color: primary, width: 1.6),
         ),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 14,
+          vertical: 14,
+        ),
       ),
       chipTheme: ChipThemeData(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         side: const BorderSide(color: Color(0xFFD0D5DD), width: 1),
       ),
       dataTableTheme: DataTableThemeData(
@@ -107,9 +125,9 @@ class AppTheme {
           fontWeight: FontWeight.w600,
           color: Color(0xFF475467),
         ),
-        dataRowColor: WidgetStateProperty<Color?>.fromMap(
-          <WidgetState, Color?>{WidgetState.hovered: const Color(0xFFF2F5F9)},
-        ),
+        dataRowColor: WidgetStateProperty<Color?>.fromMap(<WidgetState, Color?>{
+          WidgetState.hovered: const Color(0xFFF2F5F9),
+        }),
         dataRowMinHeight: 54,
         dataRowMaxHeight: 76,
         dataTextStyle: const TextStyle(
@@ -121,9 +139,7 @@ class AppTheme {
         horizontalMargin: 20,
       ),
       dialogTheme: DialogThemeData(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         elevation: 12,
         shadowColor: const Color(0x2E0F172A),
         titleTextStyle: const TextStyle(
@@ -161,20 +177,14 @@ class AppTheme {
             borderRadius: BorderRadius.circular(12),
           ),
           side: const BorderSide(color: Color(0xFFD0D5DD), width: 1),
-          textStyle: const TextStyle(
-            fontSize: 13,
-            fontWeight: FontWeight.w600,
-          ),
+          textStyle: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
         ),
       ),
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
           foregroundColor: body,
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 11),
-          textStyle: const TextStyle(
-            fontSize: 13,
-            fontWeight: FontWeight.w600,
-          ),
+          textStyle: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
         ),
       ),
       iconButtonTheme: IconButtonThemeData(
