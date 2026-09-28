@@ -101,7 +101,10 @@ class SearchFilterBar extends StatelessWidget {
             style: const TextStyle(fontSize: 13),
             decoration: InputDecoration(
               hintText: hint,
-              hintStyle: const TextStyle(fontSize: 12.5, color: AppTheme.subtle),
+              hintStyle: const TextStyle(
+                fontSize: 12.5,
+                color: AppTheme.subtle,
+              ),
               prefixIcon: const Icon(
                 Icons.search,
                 size: 18,
@@ -173,6 +176,7 @@ class StatusChip extends StatelessWidget {
     );
   }
 }
+
 /// KPI metric card with icon tile, headline value and optional trend caption.
 class MetricCard extends StatelessWidget {
   const MetricCard({
@@ -257,7 +261,7 @@ class MetricCard extends StatelessWidget {
 
 /// Friendly empty state with a soft icon tile.
 class EmptyState extends StatelessWidget {
-  const EmptyState({required this.message, super.key});
+  const EmptyState({this.message = 'لا توجد نتائج', super.key});
   final String message;
   @override
   Widget build(BuildContext context) => Padding(
@@ -300,6 +304,7 @@ class EmptyState extends StatelessWidget {
     ),
   );
 }
+
 /// Card with a standardized section header (title + optional subtitle/action).
 class SectionCard extends StatelessWidget {
   const SectionCard({
@@ -339,10 +344,7 @@ class SectionCard extends StatelessWidget {
                       const SizedBox(height: 4),
                       Text(
                         subtitle!,
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: AppTheme.muted,
-                        ),
+                        style: TextStyle(fontSize: 12, color: AppTheme.muted),
                       ),
                     ],
                   ],
@@ -358,6 +360,7 @@ class SectionCard extends StatelessWidget {
     ),
   );
 }
+
 /// Export / print actions used across tables.
 class ExportActions extends StatelessWidget {
   const ExportActions({super.key});
