@@ -12,7 +12,7 @@ class AppTheme {
   static const accent = Color(0xFF2E90FA);
 
   // ---- Surfaces ----
-  static const canvas = Color(0xFFF6F7F9);
+  static const canvas = const Color(0xFFFFFCF8);
   static const surface = Color(0xFFFFFFFF);
   static const sidebarSurface = Color(0xFFFAFBFC);
 

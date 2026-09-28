@@ -82,7 +82,12 @@ class AppShell extends StatelessWidget {
                   // لا KeyedSubtree
                   // لا Fade
                   // لا Slide
-                  Expanded(child: navigationShell),
+                  Expanded(
+                    child: Material(
+                      color: Theme.of(context).scaffoldBackgroundColor,
+                      child: navigationShell,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -269,7 +274,6 @@ class _NavItem extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 4),
       child: Material(
         color: active ? const Color(0xFF2B4F6D) : Colors.transparent,
-
         borderRadius: BorderRadius.circular(9),
 
         child: InkWell(
@@ -318,40 +322,45 @@ class _NavItem extends StatelessWidget {
                     ),
                   ),
 
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: compact ? 0 : 10),
-                  child: Row(
-                    mainAxisAlignment: compact
-                        ? MainAxisAlignment.center
-                        : MainAxisAlignment.start,
-                    children: [
-                      Icon(
-                        icon,
-                        size: 19,
-                        color: active ? Colors.white : const Color(0xFF9FB4C5),
-                      ),
+                Positioned.fill(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: compact ? 0 : 10),
+                    child: Row(
+                      mainAxisAlignment: compact
+                          ? MainAxisAlignment.center
+                          : MainAxisAlignment.start,
 
-                      if (!compact) ...[
-                        const SizedBox(width: 11),
+                      children: [
+                        Icon(
+                          icon,
+                          size: 19,
+                          color: active
+                              ? Colors.white
+                              : const Color(0xFF9FB4C5),
+                        ),
 
-                        Expanded(
-                          child: Text(
-                            title,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              fontSize: 13,
-                              fontWeight: active
-                                  ? FontWeight.w600
-                                  : FontWeight.w400,
-                              color: active
-                                  ? Colors.white
-                                  : const Color(0xFFD7E2EB),
+                        if (!compact) ...[
+                          const SizedBox(width: 11),
+
+                          Expanded(
+                            child: Text(
+                              title,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: 13,
+                                fontWeight: active
+                                    ? FontWeight.w600
+                                    : FontWeight.w400,
+                                color: active
+                                    ? Colors.white
+                                    : const Color(0xFFD7E2EB),
+                              ),
                             ),
                           ),
-                        ),
+                        ],
                       ],
-                    ],
+                    ),
                   ),
                 ),
               ],

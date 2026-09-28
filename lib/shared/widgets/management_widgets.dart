@@ -26,48 +26,51 @@ class PageFrame extends StatelessWidget {
         offset: Offset(0, (1 - value) * 8),
         child: SingleChildScrollView(
           padding: const EdgeInsets.fromLTRB(28, 26, 28, 34),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        if (title != null)
-                          Text(
-                            title!,
-                            style: const TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.w700,
-                              color: AppTheme.ink,
-                              height: 1.25,
+          child: Material(
+            color: Theme.of(context).scaffoldBackgroundColor,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          if (title != null)
+                            Text(
+                              title!,
+                              style: const TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.w700,
+                                color: AppTheme.ink,
+                                height: 1.25,
+                              ),
                             ),
-                          ),
-                        const SizedBox(height: 6),
-                        if (subtitle != null)
-                          Text(
-                            subtitle!,
-                            style: const TextStyle(
-                              fontSize: 13.5,
-                              color: AppTheme.muted,
+                          const SizedBox(height: 6),
+                          if (subtitle != null)
+                            Text(
+                              subtitle!,
+                              style: const TextStyle(
+                                fontSize: 13.5,
+                                color: AppTheme.muted,
+                              ),
                             ),
-                          ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                  if (action != null)
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(6, 0, 2, 0),
-                      child: action!,
-                    ),
-                ],
-              ),
-              if (title != null) const SizedBox(height: 10),
-              child,
-            ],
+                    if (action != null)
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(6, 0, 2, 0),
+                        child: action!,
+                      ),
+                  ],
+                ),
+                if (title != null) const SizedBox(height: 10),
+                child,
+              ],
+            ),
           ),
         ),
       ),

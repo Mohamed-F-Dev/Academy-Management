@@ -172,122 +172,122 @@ class _StudentDialogState extends State<StudentDialog> {
   }
 }
 
-Future<void> showTeacherDialog(BuildContext context, {Teacher? item}) async {
-  final saved = await showDialog<bool>(
-    context: context,
-    builder: (_) => TeacherDialog(item: item),
-  );
-  if (saved == true && context.mounted)
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(const SnackBar(content: Text('تم حفظ بيانات المدرس بنجاح')));
-}
+// Future<void> showTeacherDialog(BuildContext context, {Teacher? item}) async {
+//   final saved = await showDialog<bool>(
+//     context: context,
+//     builder: (_) => TeacherDialog(item: item),
+//   );
+//   if (saved == true && context.mounted)
+//     ScaffoldMessenger.of(
+//       context,
+//     ).showSnackBar(const SnackBar(content: Text('تم حفظ بيانات المدرس بنجاح')));
+// }
 
-class TeacherDialog extends StatefulWidget {
-  const TeacherDialog({this.item, super.key});
-  final Teacher? item;
-  @override
-  State<TeacherDialog> createState() => _TeacherDialogState();
-}
+// class TeacherDialog extends StatefulWidget {
+//   const TeacherDialog({this.item, super.key});
+//   final Teacher? item;
+//   @override
+//   State<TeacherDialog> createState() => _TeacherDialogState();
+// }
 
-class _TeacherDialogState extends State<TeacherDialog> {
-  late final TextEditingController name, email, phone, specialty;
-  final key = GlobalKey<FormState>();
-  late RecordStatus status;
-  @override
-  void initState() {
-    super.initState();
-    final x = widget.item;
-    status = x?.status ?? RecordStatus.active;
-    name = TextEditingController(text: x?.name);
-    email = TextEditingController(text: x?.email);
-    phone = TextEditingController(text: x?.phone);
-    specialty = TextEditingController(text: x?.specialty);
-  }
+// class _TeacherDialogState extends State<TeacherDialog> {
+//   late final TextEditingController name, email, phone, specialty;
+//   final key = GlobalKey<FormState>();
+//   late RecordStatus status;
+//   @override
+//   void initState() {
+//     super.initState();
+//     final x = widget.item;
+//     status = x?.status ?? RecordStatus.active;
+//     name = TextEditingController(text: x?.name);
+//     email = TextEditingController(text: x?.email);
+//     phone = TextEditingController(text: x?.phone);
+//     specialty = TextEditingController(text: x?.specialty);
+//   }
 
-  @override
-  void dispose() {
-    name.dispose();
-    email.dispose();
-    phone.dispose();
-    specialty.dispose();
-    super.dispose();
-  }
+//   @override
+//   void dispose() {
+//     name.dispose();
+//     email.dispose();
+//     phone.dispose();
+//     specialty.dispose();
+//     super.dispose();
+//   }
 
-  @override
-  Widget build(BuildContext context) => AlertDialog(
-    title: Text(widget.item == null ? 'إضافة مدرس' : 'تعديل مدرس'),
-    content: SizedBox(
-      width: 560,
-      child: Form(
-        key: key,
-        child: Wrap(
-          spacing: 12,
-          runSpacing: 8,
-          children: [
-            _f(name, 'الاسم'),
-            _f(email, 'البريد الإلكتروني', type: TextInputType.emailAddress),
-            _f(phone, 'الهاتف'),
-            _f(specialty, 'التخصص'),
-            SizedBox(
-              width: 270,
-              child: DropdownButtonFormField<RecordStatus>(
-                initialValue: status,
-                decoration: const InputDecoration(labelText: 'الحالة'),
-                items: const [
-                  DropdownMenuItem(
-                    value: RecordStatus.active,
-                    child: Text('نشط'),
-                  ),
-                  DropdownMenuItem(
-                    value: RecordStatus.inactive,
-                    child: Text('غير نشط'),
-                  ),
-                ],
-                onChanged: (v) =>
-                    setState(() => status = v ?? RecordStatus.active),
-              ),
-            ),
-          ],
-        ),
-      ),
-    ),
-    actions: [
-      TextButton(
-        onPressed: () => Navigator.pop(context),
-        child: const Text('إلغاء'),
-      ),
-      FilledButton(onPressed: _save, child: const Text('حفظ')),
-    ],
-  );
-  Widget _f(TextEditingController x, String label, {TextInputType? type}) =>
-      SizedBox(
-        width: 270,
-        child: TextFormField(
-          controller: x,
-          keyboardType: type,
-          decoration: InputDecoration(labelText: label),
-          validator: (v) =>
-              v == null || v.trim().isEmpty ? 'هذا الحقل مطلوب' : null,
-        ),
-      );
-  void _save() {
-    if (!key.currentState!.validate()) return;
-    final x = widget.item;
-    context.read<TeachersCubit>().save(
-      Teacher(
-        id: x?.id ?? 't${DateTime.now().microsecondsSinceEpoch}',
-        name: name.text,
-        email: email.text,
-        phone: phone.text,
-        specialty: specialty.text,
-        status: status,
-        groups: x?.groups ?? 0,
-      ),
-    );
-    Navigator.pop(context, true);
-  }
-}
+//   @override
+//   Widget build(BuildContext context) => AlertDialog(
+//     title: Text(widget.item == null ? 'إضافة مدرس' : 'تعديل مدرس'),
+//     content: SizedBox(
+//       width: 560,
+//       child: Form(
+//         key: key,
+//         child: Wrap(
+//           spacing: 12,
+//           runSpacing: 8,
+//           children: [
+//             _f(name, 'الاسم'),
+//             _f(email, 'البريد الإلكتروني', type: TextInputType.emailAddress),
+//             _f(phone, 'الهاتف'),
+//             _f(specialty, 'التخصص'),
+//             SizedBox(
+//               width: 270,
+//               child: DropdownButtonFormField<RecordStatus>(
+//                 initialValue: status,
+//                 decoration: const InputDecoration(labelText: 'الحالة'),
+//                 items: const [
+//                   DropdownMenuItem(
+//                     value: RecordStatus.active,
+//                     child: Text('نشط'),
+//                   ),
+//                   DropdownMenuItem(
+//                     value: RecordStatus.inactive,
+//                     child: Text('غير نشط'),
+//                   ),
+//                 ],
+//                 onChanged: (v) =>
+//                     setState(() => status = v ?? RecordStatus.active),
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     ),
+//     actions: [
+//       TextButton(
+//         onPressed: () => Navigator.pop(context),
+//         child: const Text('إلغاء'),
+//       ),
+//       FilledButton(onPressed: _save, child: const Text('حفظ')),
+//     ],
+//   );
+//   Widget _f(TextEditingController x, String label, {TextInputType? type}) =>
+//       SizedBox(
+//         width: 270,
+//         child: TextFormField(
+//           controller: x,
+//           keyboardType: type,
+//           decoration: InputDecoration(labelText: label),
+//           validator: (v) =>
+//               v == null || v.trim().isEmpty ? 'هذا الحقل مطلوب' : null,
+//         ),
+//       );
+//   void _save() {
+//     if (!key.currentState!.validate()) return;
+//     final x = widget.item;
+//     context.read<TeachersCubit>().save(
+//       Teacher(
+//         id: x?.id ?? 't${DateTime.now().microsecondsSinceEpoch}',
+//         name: name.text,
+//         email: email.text,
+//         phone: phone.text,
+//         specialty: specialty.text,
+//         status: status,
+//         groups: x?.groups ?? 0,
+//       ),
+//     );
+//     Navigator.pop(context, true);
+//   }
+// }
 
 Future<void> showGroupDialog(BuildContext context, {Group? item}) async {
   final saved = await showDialog<bool>(
